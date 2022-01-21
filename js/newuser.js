@@ -21,27 +21,33 @@ function NewUser() {
 
   // Test if all username letters are between 'a' and 'z'
   let charNumber;
-  for (var i = 0; i < userName.length; i++) {
-    charNumber = userName[i].charCodeAt(0);
+  [...userName].forEach((char) => {
+    charNumner = char.charCodeAt(0);
 
     if (charNumber < 97 || charNumber > 122) {
       const failure = new bootstrap.Modal(document.getElementById('failure'));
       failure.show();
       return
     }
-  }
 
-  criaUser(userName, password1)
+  });
+
+  const hash = md5(`${userName}${password1}`)
+
+
+  criaUser(userName, hash)
 }
 
-async function criaUser(usrName, password) {
+async function criaUser(userName, password) {
   const clockAmin = (document.getElementById("div-clock"))
 
   try {
     clockAmin.classList.remove("invisible");
     clockAmin.classList.add("visible");
 
-    const resp = await axios.post(`${url}/user/store`, {name: usrName, password: password});
+    console.log(userName, password)
+
+    const resp = await axios.post(`${url}/user/store`, {name: userName, password: password});
 
     clockAmin.classList.remove("visible");
     clockAmin.classList.add("invisible");

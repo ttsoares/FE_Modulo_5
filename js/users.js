@@ -76,7 +76,7 @@ async function edit() {
       let edit_Nam = document.getElementById("edNam");
       let edit_Pas = document.getElementById("edPas");
       edit_Nam.value = uName;
-      edit_Pas.value = password;
+      edit_Pas.value = "";
       let editModal = new bootstrap.Modal(document.getElementById('editModal'));
       editModal.show();
   })
@@ -87,14 +87,14 @@ async function edit() {
 
 // Back from the editModal to store new content
 async function saveEdit() {
-  const usrName = document.getElementById("edNam").value;
+  const userName = document.getElementById("edNam").value;
   const passWord = document.getElementById("edPas").value;
 
   // To test if there is no content or are just spaces
-  let test_Descri = usrName.replace(/\s/g, '');
-  let test_Detail = passWord.replace(/\s/g, '');
+  let test_Name = userName.replace(/\s/g, '');
+  let test_Pass = passWord.replace(/\s/g, '');
 
-  if (test_Detail =='' || test_Descri == '') {
+  if (test_Name =='' || test_Pass == '') {
 
     const emptyModal = new bootstrap.Modal(document.getElementById('empty_filed'));
     emptyModal.show();
@@ -104,9 +104,11 @@ async function saveEdit() {
     clockAnim.classList.remove("invisible");
     clockAnim.classList.add("visible");
 
+    const hash = md5(`${userName}${passWord}`)
+
     await axios.put(`${url}/user/${id}`, {
-      name: usrName,
-      password: passWord
+      name: userName,
+      password: hash
     })
       .then(function (response) {
         backUser = response.data
@@ -120,7 +122,7 @@ async function saveEdit() {
       clockAnim.classList.add("invisible");
   }
   // To clear the inputs for new contet
-  usrName.value = '';
+  userName.value = '';
   passWord.value = '';
 
   show_users();

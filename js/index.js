@@ -1,18 +1,20 @@
 // Get username and password
 function getInputValues() {
 
-  //let userName = (document.getElementById("userName").value.toLowerCase());
-   let userName = (document.getElementById("userName").value);
-   let passWord = (document.getElementById("passWord").value);
+  let userName = (document.getElementById("userName").value.toLowerCase());
+  let passWord = (document.getElementById("passWord").value);
 
-   let test_Username = userName.replace(/\s/g, ''); // remove espaces
+  let test_Username = userName.replace(/\s/g, ''); // remove espaces
 
-   if (test_Username=='' ) {
-      const emptyModal = new bootstrap.Modal(document.getElementById('empty_filed'));
-      emptyModal.show();
-      return
-   }
-   testCredentials(userName, passWord)
+  if (test_Username=='' ) {
+    const emptyModal = new bootstrap.Modal(document.getElementById('empty_filed'));
+    emptyModal.show();
+    return
+  }
+
+  const hash = md5(`${userName}${passWord}`)
+
+  testCredentials(userName, hash)
 }
 
 // Test correct paring of username / password
