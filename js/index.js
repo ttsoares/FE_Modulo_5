@@ -34,7 +34,7 @@ async function testCredentials(uName, password) {
   }
 
   //If user/pass are OK BE returns userID
-  await axios.post(`${url}/user`, {
+  await axios.post(`${url}/login`, {
     name: uName,
     password: password
   })

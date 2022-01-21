@@ -70,10 +70,10 @@ async function edit() {
 
   await axios.get(`${url}/user/${usrIndice}/message/${id}`)
     .then(function (response) {
-      mess = response.data
+      message = response.data
 
-      let description = mess.description;
-      let details = mess.details;
+      let description = message.description;
+      let details = message.details;
 
       const idEdit_Des = document.getElementById("edDes");
       const idEdit_Det = document.getElementById("edDet");
