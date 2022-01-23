@@ -123,8 +123,8 @@ async function saveData() {
   const idDescri = document.getElementById("desCrip");
   const idDetail = document.getElementById("detAil");
   //Separation to be able to clean the fields for new content at the end
-  let descriNew = idDescri.value;
-  let detailNew = idDetail.value;
+  let descriNew = idDescri.value.slice(0,44);
+  let detailNew = idDetail.value.slice(0,149);
   // Remove spaces
   const test_Descri = descriNew.replace(/\s+/g, '');
   const test_Detail = detailNew.replace(/\s+/g, '');
